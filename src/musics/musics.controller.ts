@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, Query } from '@nestjs/common';
 import { MusicsService } from './musics.service';
 import { CreateMusicDto } from './dto/create-music.dto';
 
@@ -12,7 +12,8 @@ export class MusicsController {
   }
 
   @Get()
-  findAll(@Param('playlist') playlistId) {
+  findAll(@Query('playlist') playlistId) {
+    console.log(playlistId)
     return this.musicsService.findAll(+playlistId);
   }
 

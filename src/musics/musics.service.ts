@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { ConflictException, Injectable } from '@nestjs/common';
 import { CreateMusicDto } from './dto/create-music.dto';
 import { PrismaService } from 'src/database/prisma.service';
 
@@ -9,6 +9,24 @@ export class MusicsService {
   ){}
 
   async create(createMusicDto: CreateMusicDto) {
+    const playlistWithId =  await this.prismaService.playlist.findUnique({
+      where: {
+        id: createMusicDto.playlistId
+      }
+    })
+
+    const playlistWithVideoId = await this.prismaService.music.findFirst({
+      where: {
+        videoId: createMusicDto.videoId
+      }
+    })
+
+    if(!playlistWithId){
+      throw new ConflictException({message: "playlist not exists"})
+    }
+    if(playlistWithVideoId){
+      throw new ConflictException({message: "music already includes in playlist"})
+    }
     return await this.prismaService.music.create({
       data: createMusicDto
     })
