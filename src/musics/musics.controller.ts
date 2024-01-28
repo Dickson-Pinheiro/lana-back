@@ -12,8 +12,8 @@ export class MusicsController {
   }
 
   @Get()
-  findAll() {
-    return this.musicsService.findAll();
+  findAll(@Param('playlist') playlistId) {
+    return this.musicsService.findAll(+playlistId);
   }
 
   @Get(':id')

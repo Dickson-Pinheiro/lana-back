@@ -14,8 +14,12 @@ export class MusicsService {
     })
   }
 
-  async findAll() {
-    return await this.prismaService.music.findMany()
+  async findAll(playlistId: number) {
+    return await this.prismaService.music.findMany({
+      where: {
+        playlistId
+      }
+    })
   }
 
   async findOne(id: number) {
