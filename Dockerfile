@@ -21,7 +21,7 @@ RUN npx prisma migrate dev
 RUN npm run build
 
 # Expose the port on which the app will run
-EXPOSE 3000
+EXPOSE 8080
 
 # Start the server using the production build
 CMD ["npm", "run", "start:prod"]
