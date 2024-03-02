@@ -13,7 +13,7 @@ RUN npm install
 # Bundle app source
 COPY . .
 
-RUN npx prisma migrate dev
+#RUN npx prisma migrate dev
 
 # Copy the .env and .env.development files
 
